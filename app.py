@@ -489,7 +489,6 @@ else:
 # ═════════════════════════════════════════════════════════════════
 # SECTION 5 — FOOTER
 # ═════════════════════════════════════════════════════════════════
-st.markdown("<hr style='border-color:#30363d; margin-top:40px;'>", unsafe_allow_html=True)
 st.markdown("""
 <div style='text-align:center; color:#8b949e; font-size:13px; padding:10px;'>
     <b>Data Sources:</b> OBS Annual Report 2023 · NFO Annual Report 2024 ·
@@ -498,7 +497,31 @@ st.markdown("""
     Built by <b>Lindiwe Songelwa</b> ·
     <a href='https://github.com/Lindiwe-22/SA-Bank-Trust-Score' style='color:#58a6ff;'>GitHub</a> ·
     <a href='https://www.linkedin.com/in/lindiwe-songelwa' style='color:#58a6ff;'>LinkedIn</a>
-    <br>
-    <i>For educational and consumer advocacy purposes. Not financial advice.</i>
+</div>
+
+<div style='
+    margin-top:24px;
+    background:#161b22;
+    border:1px solid #30363d;
+    border-radius:8px;
+    padding:18px 24px;
+    color:#8b949e;
+    font-size:12px;
+    text-align:left;
+'>
+    <b style='color:white; font-size:13px;'>📋 Terms of Use</b><br><br>
+    The information presented on this dashboard is compiled from publicly available official sources including the 
+    Ombudsman for Banking Services (OBS), the National Financial Ombud (NFO), the South African Reserve Bank (SARB) 
+    Prudential Authority, DataEQ, and Sagaci Research. It is intended solely for <b>educational and consumer 
+    awareness purposes</b>.<br><br>
+    This dashboard does not constitute financial advice, and no part of its content should be interpreted as a 
+    recommendation to open, close, or transfer any banking product. Trust scores are calculated using a weighted 
+    model developed independently by the author and do not represent the official views of any regulator, 
+    institution, or data provider.<br><br>
+    While every effort has been made to ensure accuracy, the author makes no warranties — express or implied — 
+    regarding the completeness or fitness of this information for any particular purpose. The author accepts no 
+    liability for decisions made on the basis of this dashboard.<br><br>
+    All data, scoring methodologies, visual designs, and written content on this dashboard are the original work 
+    of <b>Lindiwe Songelwa</b> © 2025. Reproduction or redistribution without written permission is prohibited.
 </div>
 """, unsafe_allow_html=True)
