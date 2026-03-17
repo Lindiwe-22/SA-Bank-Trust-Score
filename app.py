@@ -135,46 +135,6 @@ def trust_color(score):
     else:            return "#C62828"
 
 
-def radar_chart(row, title_color):
-    """
-    Draw a single radar chart for one bank showing all
-    four dimension scores. Returns a matplotlib figure.
-    """
-    categories = [
-        "Complaint\nResolution",
-        "Consumer\nFavour",
-        "Regulatory\nRecord",
-        "Public\nSentiment"
-    ]
-    N      = len(categories)
-    angles = [n / float(N) * 2 * np.pi for n in range(N)]
-    angles += angles[:1]
-
-    values = [
-        row["score_resolution"],
-        row["score_favour"],
-        row["score_sanctions"],
-        row["score_sentiment"]
-    ]
-    values += values[:1]
-
-    fig, ax = plt.subplots(figsize=(4, 4), subplot_kw=dict(projection="polar"))
-    fig.patch.set_facecolor("#0d1117")
-    ax.set_facecolor("#161b22")
-
-    ax.plot(angles, values, "o-", linewidth=2, color=title_color)
-    ax.fill(angles, values, alpha=0.25, color=title_color)
-    ax.set_xticks(angles[:-1])
-    ax.set_xticklabels(categories, size=8, color="white")
-    ax.set_ylim(0, 10)
-    ax.set_yticks([2, 4, 6, 8, 10])
-    ax.set_yticklabels(["2", "4", "6", "8", "10"], size=7, color="#8b949e")
-    ax.grid(color="#30363d", linewidth=0.5)
-    ax.tick_params(colors="white")
-
-    return fig
-
-
 def leaderboard_chart(df):
     """
     Horizontal bar chart of all six banks ranked by Trust Score.
@@ -516,8 +476,8 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# Two columns: dimension scores + radar chart
-left, right = st.columns([1.2, 1])
+# Dimension scores
+left = st.container()
 
 with left:
     st.markdown("#### Dimension Scores")
@@ -550,10 +510,6 @@ with left:
             <div style='color:#8b949e; font-size:12px; margin-top:4px;'>{detail}</div>
         </div>
         """, unsafe_allow_html=True)
-
-with right:
-    st.markdown("#### Performance Radar")
-    st.pyplot(radar_chart(row, color))
 
 # Complaint trend
 st.markdown("#### Complaint Volume Trend (2021–2023)")
@@ -632,18 +588,6 @@ else:
                 title, xlabel, note
             )
             st.pyplot(fig)
-
-    # Side-by-side radar charts
-    st.markdown("#### Performance Radar")
-    rad1, rad2 = st.columns(2)
-    with rad1:
-        st.markdown(f"<p style='text-align:center; color:{BANK_COLORS[bank_a]};'><b>{bank_a}</b></p>",
-                    unsafe_allow_html=True)
-        st.pyplot(radar_chart(row_a, BANK_COLORS[bank_a]))
-    with rad2:
-        st.markdown(f"<p style='text-align:center; color:{BANK_COLORS[bank_b]};'><b>{bank_b}</b></p>",
-                    unsafe_allow_html=True)
-        st.pyplot(radar_chart(row_b, BANK_COLORS[bank_b]))
 
     # Plain language verdict
     st.markdown("#### Verdict")
