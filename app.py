@@ -297,32 +297,51 @@ DIMENSION_DESCRIPTIONS = {
     ),
 }
 
-# Logo badges in a row, ranked order
+# Initialise session state for selected bank
+if "selected_logo_bank" not in st.session_state:
+    st.session_state.selected_logo_bank = df["bank"].tolist()[0]
+
+# CSS for vibrate on hover
+st.markdown("""
+<style>
+@keyframes vibrate {
+    0%   { transform: translate(0); }
+    20%  { transform: translate(-2px, 2px); }
+    40%  { transform: translate(-2px, -2px); }
+    60%  { transform: translate(2px, 2px); }
+    80%  { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+.bank-badge:hover {
+    animation: vibrate 0.3s linear infinite;
+    opacity: 0.85;
+    cursor: pointer;
+}
+.bank-badge {
+    border-radius: 10px;
+    padding: 14px 6px;
+    text-align: center;
+    margin-bottom: 6px;
+    transition: opacity 0.2s;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# Logo badges as Streamlit buttons styled to look like badges
 logo_cols = st.columns(6)
 for i, (_, row) in enumerate(df.iterrows()):
     with logo_cols[i]:
         color = BANK_COLORS[row["bank"]]
-        short = row["bank"].replace(" ", "\n")
         st.markdown(f"""
-        <div id='logo_{i}' style='
-            background:{color};
-            border-radius:10px;
-            padding:14px 6px;
-            text-align:center;
-            cursor:pointer;
-            margin-bottom:6px;
-        '>
+        <div class='bank-badge' style='background:{color};'>
             <div style='font-size:11px; font-weight:bold; color:white; line-height:1.3;'>{row["bank"]}</div>
             <div style='font-size:10px; color:rgba(255,255,255,0.8); margin-top:4px;'>#{i+1}</div>
         </div>
         """, unsafe_allow_html=True)
+        if st.button(row["bank"], key=f"badge_btn_{i}", use_container_width=True):
+            st.session_state.selected_logo_bank = row["bank"]
 
-# Bank selector below logos
-selected_logo_bank = st.selectbox(
-    "View detailed scores for:",
-    options=df["bank"].tolist(),
-    key="logo_bank_select"
-)
+selected_logo_bank = st.session_state.selected_logo_bank
 
 logo_row = df[df["bank"] == selected_logo_bank].iloc[0]
 lcolor   = BANK_COLORS[selected_logo_bank]
