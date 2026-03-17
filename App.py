@@ -39,17 +39,17 @@ BANK_COLORS = {
     "TymeBank":      "#00838F"
 }
 
-# Dark theme for all matplotlib charts
+# Light theme for all matplotlib charts
 CHART_STYLE = {
-    "figure.facecolor": "#0d1117",
-    "axes.facecolor":   "#161b22",
-    "axes.labelcolor":  "white",
-    "xtick.color":      "white",
-    "ytick.color":      "white",
-    "text.color":       "white",
-    "axes.titlecolor":  "white",
-    "axes.edgecolor":   "#30363d",
-    "grid.color":       "#30363d",
+    "figure.facecolor": "white",
+    "axes.facecolor":   "white",
+    "axes.labelcolor":  "#333333",
+    "xtick.color":      "#333333",
+    "ytick.color":      "#333333",
+    "text.color":       "#333333",
+    "axes.titlecolor":  "#333333",
+    "axes.edgecolor":   "#dddddd",
+    "grid.color":       "#dddddd",
 }
 for k, v in CHART_STYLE.items():
     plt.rcParams[k] = v
@@ -142,7 +142,7 @@ def leaderboard_chart(df):
     """
     df_plot = df.sort_values("trust_score", ascending=True)
     fig, ax = plt.subplots(figsize=(9, 5))
-    fig.patch.set_facecolor("#0d1117")
+    fig.patch.set_facecolor("white")
 
     ax.axvspan(0, 4,  alpha=0.06, color="red",    label="Low Trust")
     ax.axvspan(4, 7,  alpha=0.06, color="yellow", label="Medium Trust")
@@ -150,17 +150,17 @@ def leaderboard_chart(df):
 
     colors = [BANK_COLORS[b] for b in df_plot["bank"]]
     bars   = ax.barh(df_plot["bank"], df_plot["trust_score"],
-                     color=colors, edgecolor="#30363d", height=0.55)
+                     color=colors, edgecolor="#dddddd", height=0.55)
 
     for bar, val in zip(bars, df_plot["trust_score"]):
         ax.text(val + 0.08, bar.get_y() + bar.get_height() / 2,
                 f"{val:.1f}/10", va="center", fontsize=11, fontweight="bold",
-                color="white")
+                color="#333333")
 
     ax.set_xlim(0, 11.5)
-    ax.set_xlabel("Trust Score (out of 10)", fontsize=11, color="white")
-    ax.set_title("Overall Trust Score Ranking", fontsize=13, pad=12, color="white")
-    ax.legend(facecolor="#161b22", edgecolor="#30363d", labelcolor="white")
+    ax.set_xlabel("Trust Score (out of 10)", fontsize=11, color="#333333")
+    ax.set_title("Overall Trust Score Ranking", fontsize=13, pad=12, color="#333333")
+    ax.legend(facecolor="white", edgecolor="#dddddd", labelcolor="#333333")
     ax.grid(axis="x", alpha=0.3)
 
     return fig
@@ -426,16 +426,16 @@ for i, (_, row) in enumerate(df.iterrows()):
         score = row["trust_score"]
         st.markdown(f"""
         <div style='
-            background:#161b22;
+            background:#f8f9fa;
             border:1px solid {color};
             border-radius:10px;
             padding:16px;
             margin-bottom:12px;
             text-align:center;
         '>
-            <div style='font-size:13px; color:#8b949e;'>#{i+1}</div>
+            <div style='font-size:13px; color:#888888;'>#{i+1}</div>
             <div style='font-size:18px; font-weight:bold; color:{color};'>{row["bank"]}</div>
-            <div style='font-size:32px; font-weight:bold; color:white;'>{score:.1f}<span style='font-size:16px;color:#8b949e;'>/10</span></div>
+            <div style='font-size:32px; font-weight:bold; color:#333333;'>{score:.1f}<span style='font-size:16px;color:#888888;'>/10</span></div>
             <div style='font-size:13px; color:{trust_color(score)};'>{trust_label(score)}</div>
         </div>
         """, unsafe_allow_html=True)
@@ -462,7 +462,7 @@ color = BANK_COLORS[selected_bank]
 # Bank header
 st.markdown(f"""
 <div style='
-    background:#161b22;
+    background:#f8f9fa;
     border-left:5px solid {color};
     padding:16px 20px;
     border-radius:6px;
@@ -470,7 +470,7 @@ st.markdown(f"""
 '>
     <span style='font-size:22px; font-weight:bold; color:{color};'>{selected_bank}</span>
     &nbsp;&nbsp;
-    <span style='font-size:20px; color:white; font-weight:bold;'>{row["trust_score"]:.1f} / 10</span>
+    <span style='font-size:20px; color:#333333; font-weight:bold;'>{row["trust_score"]:.1f} / 10</span>
     &nbsp;&nbsp;
     <span style='font-size:15px; color:{trust_color(row["trust_score"])};'>{trust_label(row["trust_score"])}</span>
 </div>
@@ -501,13 +501,13 @@ with left:
         st.markdown(f"""
         <div style='margin-bottom:14px;'>
             <div style='display:flex; justify-content:space-between; margin-bottom:4px;'>
-                <span style='color:white; font-size:14px;'>{dim_name}</span>
-                <span style='color:white; font-weight:bold;'>{score:.1f}/10</span>
+                <span style='color:#333333; font-size:14px;'>{dim_name}</span>
+                <span style='color:#333333; font-weight:bold;'>{score:.1f}/10</span>
             </div>
-            <div style='background:#30363d; border-radius:4px; height:10px;'>
+            <div style='background:#e0e0e0; border-radius:4px; height:10px;'>
                 <div style='width:{bar_pct}%; background:{bar_color}; height:10px; border-radius:4px;'></div>
             </div>
-            <div style='color:#8b949e; font-size:12px; margin-top:4px;'>{detail}</div>
+            <div style='color:#666666; font-size:12px; margin-top:4px;'>{detail}</div>
         </div>
         """, unsafe_allow_html=True)
 
