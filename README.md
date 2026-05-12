@@ -139,7 +139,7 @@ Phase 1 (notebook) and Phase 2 (dashboard) are complete and deployed. Planned fu
 
 | Platform | Link |
 |---|---|
-| 💼 LinkedIn | [Lindiwe S.](https://www.linkedin.com/in/lindiwe-songelwa) |
+| 💼 LinkedIn | [Lindiwe S.](https://za.linkedin.com/in/lindiwe-songelwa) |
 | 🌐 Portfolio | [Lindiwe-22.github.io](https://lindiwe-22.github.io/Portfolio-Website/) |
 | 🏅 Credly | [Lindiwe Songelwa – Badges](https://www.credly.com/users/samnkelisiwe-lindiwe-songelwa) |
 | 🚀 Live App | [Streamlit Dashboard](https://banktrustscore.streamlit.app/) |
